@@ -87,6 +87,7 @@ io.on('connection', (socket) => {
       room.users.forEach(user => user.vote = undefined);
       io.to(roomId).emit('updateRoom', room);
       io.to(roomId).emit('countdown', 10); // Reset countdown to 10
+      io.to(roomId).emit('resetCard'); // Emit reset card event
     }
   });
 

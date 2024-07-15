@@ -20,6 +20,7 @@
         <div class="player" v-for="user in room.users" :key="user.name" :class="{ scrumMaster: user.isScrumMaster, voted: user.vote !== undefined }">
           <p>{{ user.name }}</p>
           <p v-if="room.votesRevealed && !user.isScrumMaster" class="vote">{{ user.vote }}</p>
+          <p v-else-if="user.name === userName && selectedCard !== null" class="vote">{{ selectedCard }}</p>
         </div>
       </div>
       <p v-if="!isScrumMaster">Select your vote:</p>
@@ -39,9 +40,6 @@
         <h2>Votes</h2>
         <div class="results">
           <p>Average vote: <b>{{ results.average }}</b></p>
-          <!-- <ul>
-            <li v-for="user in filteredUsers" :key="user.name">{{ user.name }}: {{ user.vote }}</li>
-          </ul> -->
         </div>
         <button v-if="isScrumMaster" @click="resetEvaluation">Restart Evaluation</button>
       </div>
@@ -86,7 +84,8 @@ export default {
       countdown: 10,
       errorMessage: '',
       storyTitle: '',
-      storyHistory: []
+      storyHistory: [],
+      selectedCard: null
     };
   },
   computed: {
@@ -115,12 +114,16 @@ export default {
     this.socket.on('startEvaluation', () => {
       this.evaluationStarted = true;
       this.countdown = 10;
+      this.selectedCard = null; // Reset selected card on evaluation start
     });
     this.socket.on('countdown', (count) => {
       this.countdown = count;
       if (count === 0) {
         this.evaluationStarted = false;
       }
+    });
+    this.socket.on('resetCard', () => {
+      this.selectedCard = null;
     });
     this.socket.on('roomClosed', () => {
       alert('Room has been closed.');
@@ -153,6 +156,7 @@ export default {
       });
     },
     castVote(card) {
+      this.selectedCard = card;
       this.socket.emit('vote', { roomId: this.roomId, userName: this.userName, vote: card });
     },
     revealVotes() {
@@ -164,7 +168,9 @@ export default {
     resetEvaluation() {
       this.evaluationStarted = false;
       this.countdown = 10;
+      // this.selectedCard = null;
       this.socket.emit('resetEvaluation', this.roomId);
+      // this.socket.emit('resetCard', this.roomId); // Emit reset card event
     }
   },
   beforeUnmount() {
@@ -224,6 +230,26 @@ export default {
 .card {
   display: inline-block;
   margin: 5px;
+}
+
+.card button {
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.card button.selected {
+  background-color: #007bff;
+  color: white;
 }
 
 .history {
