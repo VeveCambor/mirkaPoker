@@ -6,6 +6,8 @@
     <div v-if="roomId">
       <p>Room created! Share this link:</p>
       <a :href="roomLink">{{ roomLink }}</a>
+      <br/>
+      <br/>
       <button @click="goToRoom">Go to Room</button>
     </div>
   </div>
