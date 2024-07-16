@@ -1,7 +1,7 @@
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import path from 'path'; // Importovanie path
+import path from 'path';
 import cors from 'cors';
 import { createRoom, getRoom, joinRoom, exitRoom, vote, revealVotes, getResults, getAllRooms } from './room';
 
@@ -20,7 +20,7 @@ app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // Serve static files from the frontend
-app.use(express.static(path.join(__dirname, '../client/dist'))); // Adjust the path to your dist folder
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
 app.post('/room', (req, res) => {
   const { scrumMasterName } = req.body;
@@ -42,7 +42,7 @@ app.get('/room/:id', (req, res) => {
 
 // Catch-all to serve index.html for any other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './dist', 'index.html')); // Adjust the path to your dist folder
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 
 io.on('connection', (socket) => {
@@ -91,7 +91,6 @@ io.on('connection', (socket) => {
   socket.on('resetEvaluation', (roomId) => {
     const room = getRoom(roomId);
     if (room) {
-      // clearInterval(countdownInterval!);
       room.votesRevealed = false;
       room.users.forEach(user => user.vote = undefined);
       io.to(roomId).emit('updateRoom', room);
