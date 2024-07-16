@@ -1,3 +1,18 @@
+<template>
+  <div>
+    <h1>Planning Poker</h1>
+    <input v-model="scrumMasterName" placeholder="Enter Scrum Master name" />
+    <button @click="createRoom">Create Room</button>
+    <div v-if="roomId">
+      <p>Room created! Share this link:</p>
+      <a :href="roomLink">{{ roomLink }}</a>
+      <br/>
+      <br/>
+      <button @click="goToRoom">Go to Room</button>
+    </div>
+  </div>
+</template>
+
 <script>
 import axios from 'axios';
 
@@ -21,7 +36,8 @@ export default {
         return;
       }
       try {
-        const response = await axios.post('https://mirkapoker-server.onrender.com/api/room', { scrumMasterName: this.scrumMasterName });
+        // const response = await axios.post('http://localhost:3000/room', { scrumMasterName: this.scrumMasterName });
+        const response = await axios.post('https://mirkapoker-server.onrender.com/room', { scrumMasterName: this.scrumMasterName });
         this.roomId = response.data.id;
       } catch (error) {
         console.error(error);
@@ -37,3 +53,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* Add your styles here */
+</style>

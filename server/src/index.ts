@@ -2,7 +2,6 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
-import path from 'path';
 import { createRoom, getRoom, joinRoom, exitRoom, vote, revealVotes, getResults, getAllRooms } from './room';
 
 const app = express();
@@ -16,17 +15,10 @@ const io = new Server(server, {
 
 const port = 3000;
 
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-// Serve static files from the 'dist' directory
-app.use(express.static(path.join(__dirname, 'dist')));
-
-app.post('/api/room', (req, res) => {
+app.post('/room', (req, res) => {
   const { scrumMasterName } = req.body;
   if (!scrumMasterName) {
     return res.status(400).json({ error: 'Scrum Master name is required' });
@@ -35,7 +27,7 @@ app.post('/api/room', (req, res) => {
   res.json(room);
 });
 
-app.get('/api/room/:id', (req, res) => {
+app.get('/room/:id', (req, res) => {
   const room = getRoom(req.params.id);
   if (room) {
     res.json(room);
@@ -90,6 +82,7 @@ io.on('connection', (socket) => {
   socket.on('resetEvaluation', (roomId) => {
     const room = getRoom(roomId);
     if (room) {
+      // clearInterval(countdownInterval!);
       room.votesRevealed = false;
       room.users.forEach(user => user.vote = undefined);
       io.to(roomId).emit('updateRoom', room);
@@ -114,11 +107,6 @@ io.on('connection', (socket) => {
       }
     }
   });
-});
-
-// Serve index.html for all other routes to support client-side routing
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 server.listen(port, '0.0.0.0', () => {
