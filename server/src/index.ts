@@ -22,7 +22,7 @@ app.use(express.json());
 // Serve static files from the client build directory
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.post('/api/room', (req, res) => {
+app.post('/room', (req, res) => {
   const { scrumMasterName } = req.body;
   if (!scrumMasterName) {
     return res.status(400).json({ error: 'Scrum Master name is required' });
@@ -31,7 +31,7 @@ app.post('/api/room', (req, res) => {
   res.json(room);
 });
 
-app.get('/api/room/:id', (req, res) => {
+app.get('/room/:id', (req, res) => {
   const room = getRoom(req.params.id);
   if (room) {
     res.json(room);
