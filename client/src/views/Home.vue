@@ -37,7 +37,7 @@ export default {
       }
       try {
         // const response = await axios.post('http://localhost:3000/room', { scrumMasterName: this.scrumMasterName });
-        const response = await axios.post('https://mirkapoker-server.onrender.com/room', { scrumMasterName: this.scrumMasterName });
+        const response = await axios.post('https://mirkapoker-server.onrender.com', { scrumMasterName: this.scrumMasterName });
         this.roomId = response.data.id;
       } catch (error) {
         console.error(error);
