@@ -1,4 +1,15 @@
 const { defineConfig } = require('@vue/cli-service')
+
 module.exports = defineConfig({
-  transpileDependencies: true
+  publicPath: '/',
+  outputDir: 'dist',
+  transpileDependencies: true,
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://mirkapoker-server.onrender.com',
+        changeOrigin: true
+      }
+    }
+  }
 })
