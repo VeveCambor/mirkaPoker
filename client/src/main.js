@@ -8,4 +8,4 @@ const socket = io('https://mirkapoker-server.onrender.com'); // Nahraďte YOUR_I
 
 const app = createApp(App);
 app.config.globalProperties.$socket = socket;
-app.use('/', router).mount('#app');
+app.use(router).mount('#app');
