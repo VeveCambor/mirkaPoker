@@ -61,14 +61,14 @@ io.on('connection', (socket) => {
     const room = getRoom(roomId);
     if (room) {
       io.to(roomId).emit('startEvaluation');
-      let countdown = 10;
+      let countdown = 5;
       const countdownInterval = setInterval(() => {
         countdown--;
         io.to(roomId).emit('countdown', countdown);
         if (countdown === 0) {
           clearInterval(countdownInterval);
         }
-      }, 1000);
+      }, 500);
     }
   });
 
@@ -85,7 +85,7 @@ io.on('connection', (socket) => {
       room.votesRevealed = false;
       room.users.forEach(user => user.vote = undefined);
       io.to(roomId).emit('updateRoom', room);
-      io.to(roomId).emit('countdown', 10); // Reset countdown to 10
+      io.to(roomId).emit('countdown', 5); // Reset countdown to 5
       io.to(roomId).emit('resetCard'); // Emit reset card event
     }
   });
