@@ -42,6 +42,7 @@ app.get('/room/:id', (req, res) => {
 
 // Catch-all handler to return index.html for any requests not handled above
 app.get('*', (req, res) => {
+  console.log(__dirname)
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
