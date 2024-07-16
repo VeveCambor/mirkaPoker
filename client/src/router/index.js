@@ -18,6 +18,8 @@ const routes = [
     name: 'H',
     component: HomePage,
   },
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: HomePage },
+  { path: '/user-:afterUser(.*)', component: HomePage }
 ];
 
 const router = createRouter({
