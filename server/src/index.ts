@@ -1,6 +1,7 @@
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import path from 'path'; // Importovanie path
 import cors from 'cors';
 import { createRoom, getRoom, joinRoom, exitRoom, vote, revealVotes, getResults, getAllRooms } from './room';
 
@@ -18,6 +19,9 @@ const port = 3000;
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
+// Serve static files from the frontend
+app.use(express.static(path.join(__dirname, '../client/dist'))); // Adjust the path to your dist folder
+
 app.post('/room', (req, res) => {
   const { scrumMasterName } = req.body;
   if (!scrumMasterName) {
@@ -34,6 +38,11 @@ app.get('/room/:id', (req, res) => {
   } else {
     res.status(404).send('Room not found');
   }
+});
+
+// Catch-all to serve index.html for any other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html')); // Adjust the path to your dist folder
 });
 
 io.on('connection', (socket) => {
