@@ -20,7 +20,8 @@ app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // Serve static files from the client build directory
-app.use(express.static(path.join(__dirname, '../../client/dist')));
+// app.use(express.static(path.join(__dirname, '../../client/dist')));
+app.use(express.static('dist'));
 
 app.post('/room', (req, res) => {
   const { scrumMasterName } = req.body;
@@ -115,7 +116,8 @@ io.on('connection', (socket) => {
 // Catch-all handler to return index.html for any requests not handled above
 app.get('*', (req, res) => {
   console.log(__dirname)
-  res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
+  // res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
+  res.sendFile('index.html');
 });
 
 server.listen(port, '0.0.0.0', () => {
