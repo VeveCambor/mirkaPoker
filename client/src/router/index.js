@@ -13,6 +13,11 @@ const routes = [
     name: 'Room',
     component: RoomPage,
   },
+  {
+    path: '/h',
+    name: 'H',
+    component: HomePage,
+  },
 ];
 
 const router = createRouter({
