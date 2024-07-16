@@ -3,7 +3,8 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import { createRoom, getRoom, joinRoom, exitRoom, vote, revealVotes, getResults, getAllRooms } from './room';
-
+// doplnene
+import path from 'path';
 
 const app = express();
 const server = createServer(app);
@@ -18,6 +19,10 @@ const port = 3000;
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
+
+// doplnene Serve static files from the client/dist directory
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.post('/room', (req, res) => {
   const { scrumMasterName } = req.body;
@@ -35,6 +40,11 @@ app.get('/room/:id', (req, res) => {
   } else {
     res.status(404).send('Room not found');
   }
+});
+
+// doplnene Fallback to index.html for SPA routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 io.on('connection', (socket) => {
