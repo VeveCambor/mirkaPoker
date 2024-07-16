@@ -21,7 +21,7 @@ app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // doplnene Serve static files from the client/dist directory
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.post('/room', (req, res) => {
