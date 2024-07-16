@@ -18,6 +18,8 @@ const port = 3000;
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 app.post('/room', (req, res) => {
   const { scrumMasterName } = req.body;
   if (!scrumMasterName) {
@@ -111,3 +113,5 @@ io.on('connection', (socket) => {
 server.listen(port, '0.0.0.0', () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+
+module.exports = app; 
