@@ -20,7 +20,7 @@ app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // Serve static files from the client build directory
-app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 app.post('/room', (req, res) => {
   const { scrumMasterName } = req.body;
