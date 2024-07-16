@@ -6,12 +6,12 @@ module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
     historyApiFallback: true,
-    proxy: {
-      '/api': {
-        target: 'https://mirkapoker-server.onrender.com',
-        changeOrigin: true,
-        pathRewrite: { '^/api': '' },
-      },
-    },
+    // proxy: {
+    //   '/api': {
+    //     target: 'https://mirkapoker-server.onrender.com',
+    //     changeOrigin: true,
+    //     pathRewrite: { '^/api': '' },
+    //   },
+    // },
   },
 });
