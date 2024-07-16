@@ -42,7 +42,7 @@ app.get('/room/:id', (req, res) => {
 
 // Catch-all to serve index.html for any other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist', 'index.html')); // Adjust the path to your dist folder
+  res.sendFile(path.join(__dirname, './dist', 'index.html')); // Adjust the path to your dist folder
 });
 
 io.on('connection', (socket) => {
