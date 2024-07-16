@@ -2,7 +2,7 @@ const { defineConfig } = require('@vue/cli-service');
 
 module.exports = defineConfig({
   publicPath: '/',
-  outputDir: 'dist',
+  outputDir: path.resolve(__dirname, '../server/dist'),  // Týmto zabezpečíte, že frontend sa bude buildovať do správneho adresára
   transpileDependencies: true,
   devServer: {
     proxy: {
