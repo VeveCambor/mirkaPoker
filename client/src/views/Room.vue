@@ -14,7 +14,7 @@
       <div v-if="isScrumMaster">
         <input v-model="storyTitle" placeholder="Enter story title" />
       </div>
-      <div v-if="evaluationStarted">
+      <div v-if="evaluationStarted || countdown < 7">
         <h2>Evaluation in progress: {{ countdown }}</h2>
       </div>
       <br />
