@@ -39,8 +39,8 @@ app.get('/room/:id', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  const clientIp = socket.handshake.address;
-  console.log(`User connected: ${socket.id}, IP ${clientIp}`); //added
+  const clientIp = socket.handshake.headers['x-forwarded-for'] || socket.handshake.address;
+  console.log(`User connected: ${socket.id}, IP: ${clientIp}`); // Vypíše sa IP adresa používateľa
 
   socket.on('joinRoom', ({ roomId, userName }, callback) => {
     const room = joinRoom(roomId, userName, socket.id);
@@ -89,7 +89,7 @@ io.on('connection', (socket) => {
       room.votesRevealed = false;
       room.users.forEach(user => user.vote = undefined);
       if (room.countdownInterval) { //added
-        clearInterval(room.countdownInterval); // Zastavenie countdown, ak existuje
+        clearInterval(room.countdownInterval as NodeJS.Timeout); // Zastavenie countdown, ak existuje
         room.countdownInterval = null; //added
       }
       io.to(roomId).emit('updateRoom', room);
