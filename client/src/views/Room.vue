@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Hello, {{ userName }}!</h1>
+    <br/>
     <div v-if="!joined">
       <input v-model="userName" placeholder="Enter your name" />
       <button @click="joinRoom">Join Room</button>
@@ -39,6 +40,7 @@
         </div>
       </div>
       <p v-if="!isScrumMaster">Select your vote:</p>
+      <br/>
       <div v-if="!isScrumMaster">
         <div v-for="card in fibonacci" :key="card" class="card">
           <button @click="castVote(card)">{{ card }}</button>

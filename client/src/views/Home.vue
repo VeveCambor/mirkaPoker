@@ -1,11 +1,13 @@
 <template>
   <div  v-if="loading">
-    <h1>LOADING</h1>
+    <h1>LOADING...</h1>
   </div>
   <div v-else>
-    <h1>Planning Poker</h1>
+    <h1>Mirka's Planning Poker</h1>
+    <br/>
     <input v-model="scrumMasterName" placeholder="Enter Scrum Master name" />
     <button @click="createRoom">Create Room</button>
+    <br/>
     <div v-if="roomId">
       <p>Room created! Share this link:</p>
       <a :href="roomLink">{{ roomLink }}</a>
