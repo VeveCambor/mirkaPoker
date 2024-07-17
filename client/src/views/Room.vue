@@ -154,6 +154,10 @@ export default {
         } else {
           this.errorMessage = response.message;
         }
+        this.$router.push({
+          path: `/room/${this.roomId}`,
+          query: { userName: this.userName }
+      });
       });
     },
     castVote(card) {
