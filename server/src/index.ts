@@ -115,6 +115,11 @@ io.on('connection', (socket) => {
     io.to(roomId).emit('newJoke', joke);
   });
 
+  //zmena
+  socket.on('resetCountdown', (roomId) => {
+    io.to(roomId).emit('countdown', 7);
+  });
+
   socket.on('disconnecting', (reason) => {
     console.log(`User disconnecting: ${socket.id}, reason: ${reason}`);
   });

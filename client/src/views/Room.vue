@@ -242,9 +242,8 @@ export default {
     resetEvaluation() {
       this.evaluationStarted = false;
       this.countdown = 7;
-      // this.selectedCard = null;
       this.socket.emit("resetEvaluation", this.roomId);
-      // this.socket.emit('resetCard', this.roomId); // Emit reset card event
+      this.socket.emit('resetCountdown', this.roomId); // Emit reset countdown event
     },
     async fetchJoke() {
       try {
