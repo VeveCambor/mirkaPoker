@@ -2,10 +2,11 @@
   <div>
     <h1>Hello, {{ userName }}!</h1>
     <br />
-    <p>Happy estimation !</p>
     <div v-if="!joined">
       <input v-model="userName" placeholder="Enter your name" />
       <button @click="joinRoom">Join Room</button>
+      <br/>
+      <p>Happy Evaluation ^.^</p>
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     </div>
     <div v-else>
@@ -14,7 +15,7 @@
       <div v-if="isScrumMaster">
         <input v-model="storyTitle" placeholder="Enter story title" />
       </div>
-      <div v-if="evaluationStarted || countdown < 7">
+      <div v-if="evaluationStarted">
         <h2>Evaluation in progress: {{ countdown }}</h2>
       </div>
       <br />
@@ -98,12 +99,14 @@
         </table>
       </div>
       <div v-if="isScrumMaster" class="joke-button">
-        <br/>
-        <button @click="fetchJoke">Joke at the end ? </button>
+        <br />
+        <button @click="fetchJoke">Joke at the end ?</button>
       </div>
       <div v-if="joke" class="joke">
-        <br/>
-        <p>Joke at the end -> <b>{{ joke }}</b></p>
+        <br />
+        <p>
+          Joke at the end -> <b>{{ joke }}</b>
+        </p>
       </div>
     </div>
     <div v-if="room" class="room-link">
@@ -151,7 +154,8 @@ export default {
     },
   },
   mounted() {
-    if(!this.socket){ // added
+    if (!this.socket) {
+      // added
       this.socket = io("https://mirkapoker-server.onrender.com");
     }
     this.socket.on("updateRoom", (room) => {
@@ -243,22 +247,24 @@ export default {
       this.evaluationStarted = false;
       this.countdown = 7;
       this.socket.emit("resetEvaluation", this.roomId);
-      this.socket.emit('resetCountdown', this.roomId); // Emit reset countdown event
+      this.socket.emit("resetCountdown", this.roomId); // Emit reset countdown event
     },
     async fetchJoke() {
       try {
-        const response = await axios.get('https://v2.jokeapi.dev/joke/Programming');
-        let joke = '';
-        if (response.data.type === 'single') {
+        const response = await axios.get(
+          "https://v2.jokeapi.dev/joke/Programming"
+        );
+        let joke = "";
+        if (response.data.type === "single") {
           joke = response.data.joke;
         } else {
           joke = `${response.data.setup} - ${response.data.delivery}`;
         }
-        this.socket.emit('sendJoke', { roomId: this.roomId, joke });
+        this.socket.emit("sendJoke", { roomId: this.roomId, joke });
       } catch (error) {
-        console.error('Failed to fetch joke', error);
+        console.error("Failed to fetch joke", error);
       }
-    }
+    },
   },
   beforeUnmount() {
     localStorage.removeItem("savedRoom");
