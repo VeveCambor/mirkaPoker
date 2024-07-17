@@ -101,7 +101,7 @@ export default {
   },
   mounted() {
     // this.socket = io('http://localhost:3000');
-    this.socket = io('https://mirkapoker-server.onrender.com');
+    this.socket = io('https://mirka-poker-server.vercel.app/');
     this.socket.on('updateRoom', (room) => {
       this.room = room;
     });
