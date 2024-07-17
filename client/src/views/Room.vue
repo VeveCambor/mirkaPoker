@@ -43,9 +43,10 @@
         </div>
       </div>
       <br />
-      <p v-if="!isScrumMaster"><b>Select your vote:</b></p>
+      <p><b>Select your vote:</b></p>
       <br />
-      <div v-if="!isScrumMaster">
+      <!-- v-if="!isScrumMaster" -->
+      <div>
         <div v-for="card in fibonacci" :key="card" class="card">
           <button @click="castVote(card)">{{ card }}</button>
         </div>
@@ -130,7 +131,7 @@ export default {
       userName: "",
       room: null,
       joined: false,
-      fibonacci: [1, 2, 3, 5, 8, 13, 21],
+      fibonacci: [1, 2, 3, 5, 8, 13, 21, "🦕"],
       results: {},
       evaluationStarted: false,
       countdown: 7,
