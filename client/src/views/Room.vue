@@ -6,6 +6,7 @@
       <input v-model="userName" placeholder="Enter your name" />
       <button @click="joinRoom">Join Room</button>
       <br/>
+      <br/>
       <p>Happy Evaluation ^.^</p>
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     </div>
@@ -245,9 +246,8 @@ export default {
     },
     resetEvaluation() {
       this.evaluationStarted = false;
-      this.countdown = 7;
+      // this.countdown = 7;
       this.socket.emit("resetEvaluation", this.roomId);
-      this.socket.emit("resetCountdown", this.roomId); // Emit reset countdown event
     },
     async fetchJoke() {
       try {

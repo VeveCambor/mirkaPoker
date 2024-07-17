@@ -13,6 +13,9 @@
     <br/>
     <input v-model="scrumMasterName" placeholder="Enter Scrum Master name" />
     <button @click="createRoom">Create Room</button>
+    <br/>
+    <br/>
+    <p>Happy Evaluation ^.^</p>
     <div v-if="roomId">
       <br/>
       <p>Room created! Share this link:</p>
