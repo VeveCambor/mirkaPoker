@@ -1,6 +1,9 @@
 <template>
   <div  v-if="loading">
     <h1>LOADING...</h1>
+    <br/>
+    <p>This app runs on a free tier, thr server starts after approximately 2 minutes and then the app will run normally.</p>
+    <p>(poor developers)</p> 
   </div>
   <div v-else>
     <h1>Mirka's Planning Poker</h1>
