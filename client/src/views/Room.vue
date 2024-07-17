@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Hello, {{ userName }}!</h1>
-    <br/>
+    <br />
     <div v-if="!joined">
       <input v-model="userName" placeholder="Enter your name" />
       <button @click="joinRoom">Join Room</button>
@@ -39,9 +39,9 @@
           </p>
         </div>
       </div>
-      <br/>
+      <br />
       <p v-if="!isScrumMaster"><b>Select your vote:</b></p>
-      <br/>
+      <br />
       <div v-if="!isScrumMaster">
         <div v-for="card in fibonacci" :key="card" class="card">
           <button @click="castVote(card)">{{ card }}</button>
@@ -74,7 +74,7 @@
             Average vote: <b class="result">{{ results.average }}</b>
           </h2>
         </div>
-        <br/>
+        <br />
         <button v-if="isScrumMaster" @click="resetEvaluation">
           Restart Evaluation
         </button>
@@ -96,6 +96,12 @@
           </tbody>
         </table>
       </div>
+      <div v-if="isScrumMaster" class="joke-button">
+        <button @click="fetchJoke">Vtip na záver</button>
+      </div>
+      <div v-if="joke" class="joke">
+        <p>{{ joke }}</p>
+      </div>
     </div>
     <div v-if="room" class="room-link">
       <p>
@@ -106,6 +112,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import io from "socket.io-client";
 
 export default {
@@ -124,6 +131,7 @@ export default {
       storyTitle: "",
       storyHistory: [],
       selectedCard: null,
+      joke: "",
     };
   },
   computed: {
@@ -174,6 +182,9 @@ export default {
       this.joined = false;
       this.room = null;
       localStorage.removeItem("savedRoom");
+    });
+    this.socket.on("newJoke", (joke) => {
+      this.joke = joke;
     });
 
     const userName = this.$route.query.userName;
@@ -231,6 +242,20 @@ export default {
       this.socket.emit("resetEvaluation", this.roomId);
       // this.socket.emit('resetCard', this.roomId); // Emit reset card event
     },
+    async fetchJoke() {
+      try {
+        const response = await axios.get('https://v2.jokeapi.dev/joke/Programming');
+        let joke = '';
+        if (response.data.type === 'single') {
+          joke = response.data.joke;
+        } else {
+          joke = `${response.data.setup} - ${response.data.delivery}`;
+        }
+        this.socket.emit('sendJoke', { roomId: this.roomId, joke });
+      } catch (error) {
+        console.error('Failed to fetch joke', error);
+      }
+    }
   },
   beforeUnmount() {
     localStorage.removeItem("savedRoom");
@@ -244,7 +269,7 @@ export default {
   bottom: 0;
   width: 99%;
   text-align: center;
-  font-size: 18px; 
+  font-size: 18px;
   margin-bottom: 20px;
   padding-top: 20px;
 }

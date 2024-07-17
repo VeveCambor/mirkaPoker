@@ -4,7 +4,9 @@
     <br/>
     <p>This app runs on a free tier. The server starts after approximately 1 minute and then the app will run normally.</p>
     <br/>
-    <p>(poor developers)</p> 
+    <p>(poor developers)</p>
+    <br/>
+    <br/>
   </div>
   <div v-else>
     <h1>Mirka's Planning Poker</h1>
@@ -31,7 +33,7 @@ export default {
     return {
       scrumMasterName: '',
       roomId: null,
-      loading: true
+      loading: true,
     };
   },
   computed: {
@@ -68,7 +70,21 @@ export default {
         console.error('Server is not up yet, retrying...');
         setTimeout(this.checkServerStatus, 3000); // Retry after 3 seconds
       }
-    }
+    },
+    // async fetchJoke() {
+    //   try {
+    //     const response = await axios.get('https://v2.jokeapi.dev/joke/Programming'); // Replace with your joke API URL
+    //     console.log(response)
+    //     if(response.data.joke){
+    //       this.joke = response.data.joke;
+    //     } else {
+    //       this.joke = response.data.setup;
+    //     }
+    //     console.log(this.joke)
+    //   } catch (error) {
+    //     console.error('Failed to fetch joke', error);
+    //   }
+    // }
   },
   mounted() {
     this.checkServerStatus();

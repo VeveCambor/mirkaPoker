@@ -63,7 +63,7 @@ io.on('connection', (socket) => {
     const room = getRoom(roomId);
     if (room) {
       io.to(roomId).emit('startEvaluation');
-      let countdown = 10;
+      let countdown = 7;
       const countdownInterval = setInterval(() => {
         countdown--;
         io.to(roomId).emit('countdown', countdown);
@@ -87,9 +87,13 @@ io.on('connection', (socket) => {
       room.votesRevealed = false;
       room.users.forEach(user => user.vote = undefined);
       io.to(roomId).emit('updateRoom', room);
-      io.to(roomId).emit('countdown', 5); // Reset countdown to 5
+      io.to(roomId).emit('countdown', 7); 
       io.to(roomId).emit('resetCard'); // Emit reset card event
     }
+  });
+
+  socket.on('sendJoke', ({ roomId, joke }) => {
+    io.to(roomId).emit('newJoke', joke);
   });
 
   socket.on('disconnecting', (reason) => {
