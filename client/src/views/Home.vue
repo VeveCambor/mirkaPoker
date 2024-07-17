@@ -25,7 +25,7 @@ export default {
     return {
       scrumMasterName: '',
       roomId: null,
-      loading: true,
+      loading: true
     };
   },
   computed: {

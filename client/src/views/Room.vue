@@ -155,7 +155,7 @@ export default {
     this.socket.on("startEvaluation", () => {
       this.evaluationStarted = true;
       this.countdown = 10;
-      this.selectedCard = null; // Reset selected card on evaluation start
+      // this.selectedCard = null; // Reset selected card on evaluation start
     });
     this.socket.on("countdown", (count) => {
       this.countdown = count;
