@@ -42,6 +42,21 @@ io.on('connection', (socket) => {
   const clientIp = socket.handshake.headers['x-forwarded-for'] || socket.handshake.address;
   console.log(`User connected: ${socket.id}, IP: ${clientIp}`); // Vypíše sa IP adresa používateľa
 
+  let inactivityTimeout: NodeJS.Timeout | null = null; // doplnene: premenná pre ukladanie časového limitu nečinnosti ADDED
+
+  // doplnene: funkcia na resetovanie časového limitu nečinnosti ADDED
+  const resetInactivityTimeout = () => {
+    if (inactivityTimeout) {
+      clearTimeout(inactivityTimeout); // doplnene: vymaže predchádzajúci časový limit, ak existuje
+    }
+    inactivityTimeout = setTimeout(() => {
+      console.log(`User disconnected due to inactivity: ${socket.id}`);
+      socket.disconnect(); // doplnene: odpojí používateľa po 15 minútach nečinnosti
+    }, 15 * 60 * 1000); // doplnene: nastaví časový limit na 15 minút
+  };
+
+  resetInactivityTimeout(); // doplnene: inicializuje časový limit po pripojení
+
   socket.on('joinRoom', ({ roomId, userName }, callback) => {
     const room = joinRoom(roomId, userName, socket.id);
     if (room) {
@@ -52,6 +67,7 @@ io.on('connection', (socket) => {
     } else {
       callback({ success: false, message: 'Username already taken' });
     }
+    resetInactivityTimeout(); // doplnene: resetuje časový limit po pripojení do miestnosti ADDED
   });
 
   socket.on('vote', ({ roomId, userName, vote: userVote }) => {
@@ -73,6 +89,7 @@ io.on('connection', (socket) => {
         }
       }, 1000);
     }
+    resetInactivityTimeout(); // doplnene: resetuje časový limit po pripojení do miestnosti ADDED
   });
 
   socket.on('revealVotes', ({ roomId, userName }) => {
@@ -80,6 +97,7 @@ io.on('connection', (socket) => {
     const room = getRoom(roomId);
     io.to(roomId).emit('updateRoom', room);
     io.to(roomId).emit('results', getResults(roomId));
+    resetInactivityTimeout(); // doplnene: resetuje časový limit po pripojení do miestnosti ADDED
   });
 
   socket.on('resetEvaluation', (roomId) => {

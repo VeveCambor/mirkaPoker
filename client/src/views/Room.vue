@@ -2,6 +2,7 @@
   <div>
     <h1>Hello, {{ userName }}!</h1>
     <br />
+    <p>Happy estimation !</p>
     <div v-if="!joined">
       <input v-model="userName" placeholder="Enter your name" />
       <button @click="joinRoom">Join Room</button>
