@@ -71,12 +71,27 @@ export const revealVotes = (id: string, userName: string): void => {
   }
 };
 
-export const getResults = (id: string): { average: number, votes: { name: string, vote: number }[] } | null => {
+// export const getResults = (id: string): { average: number, votes: { name: string, vote: number }[] } | null => {
+//   const room = getRoom(id);
+//   if (room && room.votesRevealed) {
+//     const votes = room.users.map(user => user.vote).filter(vote => vote !== undefined) as number[];
+//     const average = votes.length > 0 ? votes.reduce((a, b) => a + b, 0) / votes.length : 0;
+//     const results = room.users.filter(user => user.vote !== undefined).map(user => ({ name: user.name, vote: user.vote as number }));
+//     return { average, votes: results };
+//   }
+//   return null;
+// };
+
+export const getResults = (id: string): { average: number, votes: { name: string, vote: number | string }[] } | null => {
   const room = getRoom(id);
   if (room && room.votesRevealed) {
-    const votes = room.users.map(user => user.vote).filter(vote => vote !== undefined) as number[];
+    const votes = room.users
+      .map(user => user.vote)
+      .filter(vote => typeof vote === 'number') as number[];
     const average = votes.length > 0 ? votes.reduce((a, b) => a + b, 0) / votes.length : 0;
-    const results = room.users.filter(user => user.vote !== undefined).map(user => ({ name: user.name, vote: user.vote as number }));
+    const results = room.users
+      .filter(user => user.vote !== undefined)
+      .map(user => ({ name: user.name, vote: user.vote as number | string }));
     return { average, votes: results };
   }
   return null;
