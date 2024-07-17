@@ -7,7 +7,7 @@
       <button @click="joinRoom">Join Room</button>
       <br/>
       <br/>
-      <p>Happy Evaluation ^.^</p>
+      <p><i>Happy Evaluation ^.^</i></p>
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     </div>
     <div v-else>
@@ -106,7 +106,7 @@
       <div v-if="joke" class="joke">
         <br />
         <p>
-          Joke at the end -> <b>{{ joke }}</b>
+          <i>Joke at the end -> <b>{{ joke }}</b></i>
         </p>
       </div>
     </div>

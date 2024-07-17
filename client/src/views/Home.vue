@@ -4,7 +4,7 @@
     <br/>
     <p>This app runs on a free tier. The server starts after approximately 1 minute and then the app will run normally.</p>
     <br/>
-    <p>(poor developers)</p>
+    <p><i>(poor developers)</i></p>
     <br/>
     <br/>
   </div>
@@ -15,7 +15,7 @@
     <button @click="createRoom">Create Room</button>
     <br/>
     <br/>
-    <p>Happy Evaluation ^.^</p>
+    <p><i>Happy Evaluation ^.^</i></p>
     <div v-if="roomId">
       <br/>
       <p>Room created! Share this link:</p>
