@@ -61,14 +61,14 @@ io.on('connection', (socket) => {
     const room = getRoom(roomId);
     if (room) {
       io.to(roomId).emit('startEvaluation');
-      let countdown = 5;
+      let countdown = 10;
       const countdownInterval = setInterval(() => {
         countdown--;
         io.to(roomId).emit('countdown', countdown);
         if (countdown === 0) {
           clearInterval(countdownInterval);
         }
-      }, 500);
+      }, 1000);
     }
   });
 
