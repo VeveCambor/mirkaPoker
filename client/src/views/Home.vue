@@ -3,6 +3,7 @@
     <h1>LOADING...</h1>
     <br/>
     <p>This app runs on a free tier. The server starts after approximately 2 minutes and then the app will run normally.</p>
+    <br/>
     <p>(poor developers)</p> 
   </div>
   <div v-else>
