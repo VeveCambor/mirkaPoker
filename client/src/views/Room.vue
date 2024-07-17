@@ -39,7 +39,8 @@
           </p>
         </div>
       </div>
-      <p v-if="!isScrumMaster">Select your vote:</p>
+      <br/>
+      <p v-if="!isScrumMaster"><b>Select your vote:</b></p>
       <br/>
       <div v-if="!isScrumMaster">
         <div v-for="card in fibonacci" :key="card" class="card">
@@ -68,12 +69,12 @@
         </button>
       </div>
       <div v-if="room.votesRevealed">
-        <h2>Votes</h2>
-        <div class="results">
-          <p>
-            Average vote: <b>{{ results.average }}</b>
-          </p>
+        <div>
+          <h2>
+            Average vote: <b class="result">{{ results.average }}</b>
+          </h2>
         </div>
+        <br/>
         <button v-if="isScrumMaster" @click="resetEvaluation">
           Restart Evaluation
         </button>
@@ -96,7 +97,7 @@
         </table>
       </div>
     </div>
-    <div v-if="isScrumMaster && room" class="room-link">
+    <div v-if="room" class="room-link">
       <p>
         Room link: <a :href="roomLink">{{ roomLink }}</a>
       </p>
@@ -243,8 +244,9 @@ export default {
   bottom: 0;
   width: 99%;
   text-align: center;
-  background-color: #f9f9f9;
-  border-top: 1px solid #ddd;
+  font-size: 18px; 
+  margin-bottom: 20px;
+  padding-top: 20px;
 }
 
 .players-container {
