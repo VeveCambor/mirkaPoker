@@ -39,7 +39,8 @@ app.get('/room/:id', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log(`User connected: ${socket.id}`);
+  const clientIp = socket.handshake.address;
+  console.log(`User connected: ${socket.id}, IP ${clientIp}`); //added
 
   socket.on('joinRoom', ({ roomId, userName }, callback) => {
     const room = joinRoom(roomId, userName, socket.id);
