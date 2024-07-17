@@ -12,7 +12,7 @@ interface Room {
   users: User[];
   votesRevealed: boolean;
   scrumMaster: string;
-  countdownInterval?: NodeJS.Timeout;
+  countdownInterval?: NodeJS.Timeout | null; //added
 }
 
 const rooms: Room[] = [];

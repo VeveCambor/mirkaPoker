@@ -71,6 +71,7 @@ io.on('connection', (socket) => {
           clearInterval(countdownInterval);
         }
       }, 1000);
+      room.countdownInterval = countdownInterval;
     }
   });
 
@@ -86,6 +87,10 @@ io.on('connection', (socket) => {
     if (room) {
       room.votesRevealed = false;
       room.users.forEach(user => user.vote = undefined);
+      if (room.countdownInterval) { //added
+        clearInterval(room.countdownInterval); // Zastavenie countdown, ak existuje
+        room.countdownInterval = null; //added
+      }
       io.to(roomId).emit('updateRoom', room);
       io.to(roomId).emit('countdown', 7); 
       io.to(roomId).emit('resetCard'); // Emit reset card event
