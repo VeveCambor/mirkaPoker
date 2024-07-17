@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div  v-if="loading">
+    <h1>LOADING</h1>
+  </div>
+  <div v-else>
     <h1>Planning Poker</h1>
     <input v-model="scrumMasterName" placeholder="Enter Scrum Master name" />
     <button @click="createRoom">Create Room</button>
@@ -22,6 +25,7 @@ export default {
     return {
       scrumMasterName: '',
       roomId: null,
+      loading: true,
     };
   },
   computed: {
@@ -50,7 +54,19 @@ export default {
         query: { userName: this.scrumMasterName }
       });
     },
+    async checkServerStatus() {
+      try {
+        await axios.get('https://mirkapoker-server.onrender.com');
+        this.loading = false;
+      } catch (error) {
+        console.error('Server is not up yet, retrying...');
+        setTimeout(this.checkServerStatus, 3000); // Retry after 3 seconds
+      }
+    }
   },
+  mounted() {
+    this.checkServerStatus();
+  }
 };
 </script>
 

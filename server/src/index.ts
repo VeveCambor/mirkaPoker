@@ -18,6 +18,8 @@ const port = 3000;
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
+app.get("/", (req, res) => res.send("Express on Render!!!"));
+
 app.post('/room', (req, res) => {
   const { scrumMasterName } = req.body;
   if (!scrumMasterName) {
