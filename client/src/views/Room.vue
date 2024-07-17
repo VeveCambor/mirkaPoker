@@ -97,10 +97,12 @@
         </table>
       </div>
       <div v-if="isScrumMaster" class="joke-button">
-        <button @click="fetchJoke">Vtip na záver</button>
+        <br/>
+        <button @click="fetchJoke">Joke at the end ? </button>
       </div>
       <div v-if="joke" class="joke">
-        <p>{{ joke }}</p>
+        <br/>
+        <p>Joke at the end -> <b>{{ joke }}</b></p>
       </div>
     </div>
     <div v-if="room" class="room-link">
