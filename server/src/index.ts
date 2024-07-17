@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', ({ roomId, userName }, callback) => {
     const room = joinRoom(roomId, userName, socket.id);
     if (room) {
-      console.log(`User ${userName} joined room ${roomId}`);
+      console.log(`User ${userName} joined room ${roomId}, IP ${clientIp}`);
       socket.join(roomId);
       io.to(roomId).emit('updateRoom', room);
       callback({ success: true });
