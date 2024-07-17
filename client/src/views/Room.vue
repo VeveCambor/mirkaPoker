@@ -119,7 +119,7 @@ export default {
       fibonacci: [1, 2, 3, 5, 8, 13, 21],
       results: {},
       evaluationStarted: false,
-      countdown: 10,
+      countdown: 7,
       errorMessage: "",
       storyTitle: "",
       storyHistory: [],
@@ -157,7 +157,7 @@ export default {
     });
     this.socket.on("startEvaluation", () => {
       this.evaluationStarted = true;
-      this.countdown = 10;
+      this.countdown = 7;
       // this.selectedCard = null; // Reset selected card on evaluation start
     });
     this.socket.on("countdown", (count) => {
@@ -226,7 +226,7 @@ export default {
     },
     resetEvaluation() {
       this.evaluationStarted = false;
-      this.countdown = 10;
+      this.countdown = 7;
       // this.selectedCard = null;
       this.socket.emit("resetEvaluation", this.roomId);
       // this.socket.emit('resetCard', this.roomId); // Emit reset card event
