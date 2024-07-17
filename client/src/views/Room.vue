@@ -131,7 +131,7 @@ export default {
       userName: "",
       room: null,
       joined: false,
-      fibonacci: [1, 2, 3, 5, 8, 13, 21, "🦕"],
+      fibonacci: [1, 2, 3, 5, 8, 13, 21, "🍃"],
       results: {},
       evaluationStarted: false,
       countdown: 7,
