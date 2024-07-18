@@ -103,7 +103,7 @@
         <br />
         <button @click="fetchJoke" class="joke">Joke at the end ?</button>
       </div>
-      <div v-if="joke" class="joke">
+      <div v-if="joke">
         <br />
         <p>
           <i>Joke at the end -> <b>{{ joke }}</b></i>
@@ -374,7 +374,7 @@ input {
 
 .card button:hover {
   background-color: #007bff;
-  color: white;
+  color: pink;
 }
 
 .card button.selected {
