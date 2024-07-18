@@ -158,7 +158,7 @@ export default {
   mounted() {
     if (!this.socket) {
       // added
-      this.socket = io("https://mirkapoker-server.onrender.com");
+      this.socket = io('https://mirkapoker-server.onrender.com');
     }
     this.socket.on("updateRoom", (room) => {
       this.room = room;
@@ -274,6 +274,7 @@ export default {
 </script>
 
 <style scoped>
+
 .room-link {
   position: absolute;
   bottom: 0;
@@ -322,6 +323,34 @@ export default {
   margin-top: 5px;
 }
 
+button {
+  /* font-size: 1.2em; */
+  padding: 8px 13px;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  /* background-color: #007bff; */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* color: black; */
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+input {
+  /* font-size: 1em; */
+  padding: 8px 13px;
+  margin-left: 2px;
+  margin-right: 2px;
+  /* border: 2px solid #007bff; */
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 .card {
   display: inline-block;
   margin: 5px;
@@ -334,6 +363,7 @@ export default {
   border-radius: 5px;
   background-color: white;
   cursor: pointer;
+  color: black;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
