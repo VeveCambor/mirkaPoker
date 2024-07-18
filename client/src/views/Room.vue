@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Hello, {{ userName }}!</h1>
-    <br />
     <div v-if="!joined">
       <input v-model="userName" placeholder="Enter your name" />
       <button @click="joinRoom">Join Room</button>
