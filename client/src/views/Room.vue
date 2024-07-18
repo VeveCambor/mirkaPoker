@@ -102,7 +102,7 @@
       </div>
       <div v-if="isScrumMaster" class="joke-button">
         <br />
-        <button @click="fetchJoke">Joke at the end ?</button>
+        <button @click="fetchJoke" class="joke">Joke at the end ?</button>
       </div>
       <div v-if="joke" class="joke">
         <br />
@@ -112,6 +112,7 @@
       </div>
     </div>
     <div v-if="room" class="room-link">
+      <br/>
       <p>
         Room link: <a :href="roomLink">{{ roomLink }}</a>
       </p>
@@ -276,9 +277,9 @@ export default {
 <style scoped>
 
 .room-link {
-  position: absolute;
-  bottom: 0;
-  width: 99%;
+  /* position: absolute; */
+  /* bottom: 0; */
+  /* width: 99%; */
   text-align: center;
   font-size: 18px;
   margin-bottom: 20px;
@@ -335,6 +336,10 @@ button {
   margin-left: 2px;
   margin-right: 2px;
   color: white;
+}
+
+.joke {
+  border: 2px solid pink;
 }
 
 button:hover {
