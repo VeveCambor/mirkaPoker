@@ -44,13 +44,13 @@
       </div>
       <br />
       <p><b>Select your vote:</b></p>
-      <br />
       <!-- v-if="!isScrumMaster" -->
       <div>
         <div v-for="card in fibonacci" :key="card" class="card">
           <button @click="castVote(card)">{{ card }}</button>
         </div>
       </div>
+      <br />
       <br />
       <div v-if="!room.votesRevealed">
         <button
