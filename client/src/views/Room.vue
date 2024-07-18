@@ -328,17 +328,18 @@ button {
   padding: 8px 13px;
   border: 2px solid #007bff;
   border-radius: 10px;
-  /* background-color: #007bff; */
+  background-color: #007bff;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
   /* color: black; */
   margin-left: 2px;
   margin-right: 2px;
+  color: white;
 }
 
 button:hover {
   background-color: #007bff;
-  color: white;
+  color: pink;
 }
 
 input {
