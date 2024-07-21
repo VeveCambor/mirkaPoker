@@ -1,5 +1,5 @@
 <template>
-  <div  v-if="loading">
+  <div v-if="loading">
     <h1>LOADING...</h1>
     <br/>
     <p>This app runs on a free tier. The server starts after approximately 1 minute and then the app will run normally.</p>
@@ -8,21 +8,15 @@
     <br/>
     <br/>
   </div>
-  <div v-else>
-    <h1>Mirka's Planning Poker</h1>
-    <br/>
-    <input v-model="scrumMasterName" placeholder="Enter Scrum Master name" />
-    <button @click="createRoom">Create Room</button>
-    <br/>
-    <br/>
-    <p><i>Happy Evaluation ^.^</i></p>
+  <div class="home_container" v-else>
+    <h1 class="home_title">Mirka's Planning Poker</h1>
+    <input class="home_input" v-if="!roomId" v-model="scrumMasterName" placeholder="Enter Scrum Master name" />
+    <button class="home_button" v-if="!roomId" @click="createRoom">Create Room</button>
+    <!-- <p><i>Happy Evaluation ^.^</i></p> -->
     <div v-if="roomId">
-      <br/>
       <p>Room created! Share this link:</p>
-      <a :href="roomLink">{{ roomLink }}</a>
-      <br/>
-      <br/>
-      <button @click="goToRoom">Go to Room</button>
+      <a class="link_text" :href="roomLink">{{ roomLink }}</a>
+      <button class="home_button" @click="goToRoom">Go to Room</button>
     </div>
   </div>
 </template>
@@ -96,5 +90,73 @@ export default {
 </script>
 
 <style scoped>
-/* Add your styles here */
+.home_container {
+  position: relative;
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home_container::after {
+  content: "";
+  background-image: url('../assets/cards-bg.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  position: absolute;
+  bottom: 6rem;
+  left: 0;
+  width: 100%;
+  height: 60%;
+}
+
+.home_title {
+  font-size: 3rem;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.home_input {
+  width: 30%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: none;
+  outline-color: #ef476f;
+}
+
+.home_button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: none;
+  background-color: #ef476f;
+  color: #ffffff;
+  margin-top: 3rem;
+  cursor: pointer;
+}
+.home_button:hover {
+  background-color: #ff6d8a;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 1);
+}
+
+.link_text {
+  color: #ff6d8a;
+  text-decoration: none;
+  margin-top: 1rem;
+  display: block;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.link_text:hover {
+  text-decoration: underline;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
 </style>

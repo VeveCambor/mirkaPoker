@@ -7,12 +7,20 @@
 </template>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #ffffff;
+  background: #14171c;
+  height: 100vh;
 }
 
 nav {
@@ -21,10 +29,12 @@ nav {
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #ef476f;
+  text-decoration: none;
+  font-size: 1.5em;
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #fe89a4;
 }
 </style>
